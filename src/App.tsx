@@ -1,5 +1,17 @@
+import { useEffect, useState } from "react";
 import "./styles.css";
 import Media from "./components/Media";
+
+const heroImages = [
+  "/assets/S-Tik-Tok-1200x628.jpg",
+  "/assets/movile.jpg",
+  "/assets/Gemini_Generated_Image_c3d71oc3d71oc3d7.png",
+];
+
+const galleryImages = Array.from(
+  { length: 12 },
+  () => "/assets/Gemini_Generated_Image_c3d71oc3d71oc3d7.png",
+);
 
 export default function App() {
   return (
@@ -9,6 +21,7 @@ export default function App() {
       <main>
         <Hero />
         <Products />
+        <Highlight />
         <Recipes />
         <Promo />
         <Gallery />
@@ -25,17 +38,29 @@ function Header() {
     <header className="header" aria-label="Top navigation">
       <div className="container header__inner">
         <a className="brand" href="#inicio" aria-label="Nachos Señorial">
-          {/* Placeholder logo */}
-          <div className="brand__logo">
-            <Media src="/assets/NACHO.png" alt="Señorial Nachos" ratio="6/1" fit="contain" />
+          <div className="brand__logo brand__logo--solo">
+            <Media
+              src="/assets/señorial-nachos-nachos.png"
+              alt="Logo Señorial"
+              ratio="6/2"
+              fit="contain"
+            />
           </div>
         </a>
 
         <nav className="nav" aria-label="Main navigation">
-          <a className="nav__link" href="#inicio">Inicio</a>
-          <a className="nav__link" href="#recetas">Recetas</a>
-          <a className="nav__link" href="#compra">Compra</a>
-          <a className="nav__link" href="#contacto">Contacto</a>
+          <a className="nav__link" href="#inicio">
+            Inicio
+          </a>
+          <a className="nav__link" href="#recetas">
+            Recetas
+          </a>
+          <a className="nav__link" href="#compra">
+            Compra
+          </a>
+          <a className="nav__link" href="#contacto">
+            Contacto
+          </a>
         </nav>
       </div>
     </header>
@@ -43,34 +68,56 @@ function Header() {
 }
 
 function Hero() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const goPrev = () => {
+    setActiveIndex((prev) => (prev - 1 + heroImages.length) % heroImages.length);
+  };
+
+  const goNext = () => {
+    setActiveIndex((prev) => (prev + 1) % heroImages.length);
+  };
+
   return (
     <section id="inicio" className="hero">
-      <div className="container hero__inner">
-        <div className="hero__left">
-          <h1 className="hero__title">
-            PARA LA <span className="hero__titleStrong">FAMILIA</span>
-          </h1>
+      <div className="hero__carousel">
+        <button className="hero__arrow hero__arrow--left" type="button" onClick={goPrev} aria-label="Anterior">
+          ‹
+        </button>
 
-          <p className="hero__subtitle">
-            ¡EL NACHO QUE FALTABA!
-          </p>
-
-          <div className="hero__ctaRow">
-            <a className="btn btn--primary" href="#productos">
-              VER PRODUCTOS
-            </a>
-          </div>
+        <div className="hero__slides">
+          {heroImages.map((src, index) => (
+            <div
+              key={src}
+              className={`hero__slide ${index === activeIndex ? "is-active" : ""}`}
+              aria-hidden={index !== activeIndex}
+            >
+              <Media src={src} alt={`Nachos Señorial ${index + 1}`} ratio="16/7" fit="cover" />
+            </div>
+          ))}
         </div>
 
-        <div className="hero__right" aria-hidden="true">
-          {/* Placeholder for product-bags montage (right side in PDF) */}
-          <Media src="/assets/NACHO.png" alt="Hero placeholder" ratio="16/9" fit="contain" />
-        </div>
+        <button className="hero__arrow hero__arrow--right" type="button" onClick={goNext} aria-label="Siguiente">
+          ›
+        </button>
 
-        <div className="hero__dots" aria-hidden="true">
-          <span className="dot dot--active" />
-          <span className="dot" />
-          <span className="dot" />
+        <div className="hero__dots" role="tablist" aria-label="Carrusel de imágenes">
+          {heroImages.map((_, index) => (
+            <button
+              key={`dot-${index}`}
+              type="button"
+              className={`dot ${index === activeIndex ? "dot--active" : ""}`}
+              aria-label={`Ir a imagen ${index + 1}`}
+              onClick={() => setActiveIndex(index)}
+            />
+          ))}
         </div>
       </div>
     </section>
@@ -82,23 +129,48 @@ function Products() {
     <section id="productos" className="products">
       <div className="container products__inner">
         <div className="products__media">
-          {/* Placeholder for big product composition */}
-          <Media src="/assets/NACHO.png" alt="Producto placeholder" ratio="16/10" fit="contain" />
+          <Media src="/assets/Montaje.png" alt="Productos Señorial" ratio="5/4" fit="contain" />
+          <img className="products__pepper" src="/assets/Objeto inteligente vectorial copia.png" alt="" />
+          <img className="products__pepper products__pepper--right" src="/assets/Objeto inteligente vectorial copia 3.png" alt="" />
         </div>
 
         <div className="products__content">
-          <h2 className="products__title">NACHOS</h2>
+          <div className="products__titleImage">
+            <Media src="/assets/textoNachos.png" alt="Nachos" ratio="6/2" fit="contain" />
+          </div>
 
-          <a className="btn btn--primary btn--pill" href="#productos">
+          <a className="btn btn--green btn--pill" href="#productos">
             VER PRODUCTOS
           </a>
+        </div>
+      </div>
+    </section>
+  );
+}
 
-          <p className="products__text">
+function Highlight() {
+  return (
+    <section className="highlight">
+      <div className="container highlight__inner">
+        <div className="highlight__left">
+          <h2 className="highlight__title">
+            ¡EL <span className="nachos-font">NACHO</span> QUE FALTABA!
+          </h2>
+          <div className="highlight__logo">
+            <Media src="/assets/logo_es_señorial.png" alt="Es Señorial" ratio="5/2" fit="contain" />
+          </div>
+        </div>
+        <div className="highlight__copy">
+          <p>
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-            laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-            ullamcorper suscipit lobortis.
+            laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+            laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.
           </p>
         </div>
+        <img className="highlight__chip" src="/assets/Objeto inteligente vectorial copia 8.png" alt="" />
       </div>
     </section>
   );
@@ -108,16 +180,21 @@ function Recipes() {
   return (
     <section id="recetas" className="recipes">
       <div className="container">
-        <h2 className="sectionTitle sectionTitle--center">LA RECETA QUE FALTABA</h2>
+        <h2 className="sectionTitle sectionTitle--center sectionTitle--green nachos-font">LA RECETA QUE FALTABA</h2>
 
         <div className="recipes__grid">
-          <RecipeCard title="Para una noche casual" time="15min" />
-          <RecipeCard title="Para la reunión con amigos" time="15min" />
-          <RecipeCard title="Para ver el partido" time="25min" />
+          <RecipeCard title="Para una noche casual" time="15min" image="/assets/Gemini_Generated_Image_c3d71oc3d71oc3d7.png" />
+          <RecipeCard
+            title="Para la reunión con amigos"
+            time="15min"
+            image="/assets/Gemini_Generated_Image_c3d71oc3d71oc3d7.png"
+            variant="dark"
+          />
+          <RecipeCard title="Para ver el partido" time="25min" image="/assets/Gemini_Generated_Image_c3d71oc3d71oc3d7.png" />
         </div>
 
         <div className="center">
-          <a className="btn btn--dark btn--pill" href="#recetas">
+          <a className="btn btn--green-dark btn--pill" href="#recetas">
             VER TODAS LAS RECETAS
           </a>
         </div>
@@ -126,11 +203,21 @@ function Recipes() {
   );
 }
 
-function RecipeCard({ title, time }: { title: string; time: string }) {
+function RecipeCard({
+  title,
+  time,
+  image,
+  variant,
+}: {
+  title: string;
+  time: string;
+  image: string;
+  variant?: "dark";
+}) {
   return (
-    <article className="recipeCard">
+    <article className={`recipeCard ${variant === "dark" ? "recipeCard--dark" : ""}`}>
       <div className="recipeCard__image">
-        <Media src="/assets/NACHO.png" alt={title} ratio="16/10" fit="cover" />
+        <Media src={image} alt={title} ratio="3/4" fit="cover" />
       </div>
 
       <div className="recipeCard__bar">
@@ -140,7 +227,7 @@ function RecipeCard({ title, time }: { title: string; time: string }) {
         </div>
 
         <div className="recipeCard__play" aria-hidden="true">
-          ▶
+          ››
         </div>
       </div>
     </article>
@@ -150,8 +237,9 @@ function RecipeCard({ title, time }: { title: string; time: string }) {
 function Promo() {
   return (
     <section className="promo">
+      <div className="promo__marquee" aria-hidden="true" />
       <div className="container promo__inner">
-        <h2 className="sectionTitle sectionTitle--center sectionTitle--light">
+        <h2 className="sectionTitle sectionTitle--center sectionTitle--promo nachos-font">
           LA PROMO QUE FALTABA
         </h2>
 
@@ -162,15 +250,18 @@ function Promo() {
               laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
               ullamcorper suscipit lobortis.
             </p>
+            <p className="promo__text">
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+              laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.
+            </p>
 
-            <a className="btn btn--ghost btn--pill" href="#promo">
+            <a className="btn btn--yellow btn--pill" href="#promo">
               VER PROMO
             </a>
           </div>
 
           <div className="promo__right" aria-hidden="true">
-            {/* Placeholder for montage */}
-            <Media src="/assets/NACHO.png" alt="Promo placeholder" ratio="16/9" fit="contain" />
+            <Media src="/assets/Montaje.png" alt="Promo Nachos" ratio="16/10" fit="contain" />
           </div>
         </div>
       </div>
@@ -182,27 +273,28 @@ function Gallery() {
   return (
     <section className="gallery">
       <div className="container">
-        <h3 className="gallery__title">Mira lo que hemos hecho</h3>
+        <h3 className="gallery__title nachos-font">Mira lo que hemos hecho</h3>
 
         <div className="gallery__grid">
-          {Array.from({ length: 9 }).map((_, i) => (
-            <Media
-              key={i}
-              src="/assets/NACHO.png"
-              alt={`Galería ${i + 1}`}
-              ratio="4/3"
-              fit="cover"
-              className="gallery__item"
-            />
+          {galleryImages.map((src, i) => (
+            <Media key={src + i} src={src} alt={`Galería ${i + 1}`} ratio="4/3" fit="cover" className="gallery__item" />
           ))}
         </div>
 
         <div className="follow">
-          <div className="follow__label">SÍGUENOS</div>
-          <div className="follow__icons">
-            <a href="#" aria-label="Facebook" className="icon" />
-            <a href="#" aria-label="Instagram" className="icon" />
-            <a href="#" aria-label="TikTok" className="icon" />
+          <div className="follow__row">
+            <div className="follow__label">SÍGUENOS</div>
+            <div className="follow__icons">
+              <a href="#" aria-label="Facebook" className="icon">
+                f
+              </a>
+              <a href="#" aria-label="Instagram" className="icon">
+                in
+              </a>
+              <a href="#" aria-label="TikTok" className="icon">
+                ♪
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -215,13 +307,19 @@ function BuyHere() {
     <section id="compra" className="buy">
       <div className="container buy__inner">
         <div className="buy__left">
-          <h2 className="sectionTitle sectionTitle--light">COMPRA AQUÍ</h2>
+          <div className="buy__media" aria-hidden="true">
+            <Media src="/assets/NACHO.png" alt="Nacho" ratio="1/1" fit="contain" />
+          </div>
 
-          <ul className="buy__bullets">
-            <li>Tiendas de barrio</li>
-            <li>Supermercados</li>
-            <li>Mayoreo</li>
-          </ul>
+          <div className="buy__headline">
+            <h2 className="sectionTitle sectionTitle--light buy__title nachos-font">COMPRA AQUÍ</h2>
+
+            <ul className="buy__bullets">
+              <li>Tiendas de barrio</li>
+              <li>Supermercados</li>
+              <li>Mayoreo</li>
+            </ul>
+          </div>
 
           <p className="buy__text">
             Si te hace falta el Nacho Señorial, <br />
@@ -241,7 +339,7 @@ function BuyHere() {
           </label>
 
           <label className="field">
-            <span>Correo electónico</span>
+            <span>Correo electrónico</span>
             <input type="email" />
           </label>
 
@@ -250,7 +348,7 @@ function BuyHere() {
             <textarea rows={4} />
           </label>
 
-          <button type="submit" className="btn btn--primary btn--pill">
+          <button type="submit" className="btn btn--primary btn--square">
             ENVIAR
           </button>
         </form>
@@ -264,7 +362,8 @@ function Footer() {
     <footer className="footer">
       <div className="container footer__inner">
         <div className="footer__brand">
-          <Media src="/assets/NACHO.png" alt="Nachos" ratio="6/2" fit="contain" />
+          <Media src="/assets/logo_señorial.png" alt="Señorial" ratio="5/2" fit="contain" />
+          <Media src="/assets/textoNachos.png" alt="Nachos" ratio="5/2" fit="contain" />
         </div>
 
         <div className="footer__cols">
