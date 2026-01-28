@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import "./styles.css";
 import Media from "./components/Media";
 
 const heroImages = [
   "/assets/S-Tik-Tok-1200x628.jpg",
-  "/assets/movile.jpg",
+  "/assets/Gemini_Generated_Image_c3d71oc3d71oc3d7.png",
+  "/assets/S-Tik-Tok-1200x628.jpg",
   "/assets/Gemini_Generated_Image_c3d71oc3d71oc3d7.png",
 ];
 
@@ -37,11 +38,11 @@ function Header() {
   return (
     <header className="header" aria-label="Top navigation">
       <div className="container header__inner">
-        <a className="brand" href="#inicio" aria-label="Nachos Señorial">
+        <a className="brand" href="#inicio" aria-label="Nachos señorial">
           <div className="brand__logo brand__logo--solo">
             <Media
               src="/assets/señorial-nachos-nachos.png"
-              alt="Logo Señorial"
+              alt="Logo señorial"
               ratio="6/2"
               fit="contain"
             />
@@ -99,7 +100,7 @@ function Hero() {
               className={`hero__slide ${index === activeIndex ? "is-active" : ""}`}
               aria-hidden={index !== activeIndex}
             >
-              <Media src={src} alt={`Nachos Señorial ${index + 1}`} ratio="16/7" fit="cover" />
+              <Media src={src} alt={`Nachos señorial ${index + 1}`} ratio="16/7" fit="cover" />
             </div>
           ))}
         </div>
@@ -129,7 +130,7 @@ function Products() {
     <section id="productos" className="products">
       <div className="container products__inner">
         <div className="products__media">
-          <Media src="/assets/Montaje.png" alt="Productos Señorial" ratio="5/4" fit="contain" />
+          <Media src="/assets/Montaje.png" alt="Productos señorial" ratio="5/4" fit="contain" />
           <img className="products__pepper" src="/assets/Objeto inteligente vectorial copia.png" alt="" />
           <img className="products__pepper products__pepper--right" src="/assets/Objeto inteligente vectorial copia 3.png" alt="" />
         </div>
@@ -157,7 +158,7 @@ function Highlight() {
             ¡EL <span className="nachos-font">NACHO</span> QUE FALTABA!
           </h2>
           <div className="highlight__logo">
-            <Media src="/assets/logo_es_señorial.png" alt="Es Señorial" ratio="5/2" fit="contain" />
+            <Media src="/assets/logo_es_señorial.png" alt="Es señorial" ratio="5/2" fit="contain" />
           </div>
         </div>
         <div className="highlight__copy">
@@ -277,7 +278,7 @@ function Gallery() {
 
         <div className="gallery__grid">
           {galleryImages.map((src, i) => (
-            <Media key={src + i} src={src} alt={`Galería ${i + 1}`} ratio="4/3" fit="cover" className="gallery__item" />
+            <Media key={src + i} src={src} alt={`GalerÃ­a ${i + 1}`} ratio="4/3" fit="cover" className="gallery__item" />
           ))}
         </div>
 
@@ -292,7 +293,7 @@ function Gallery() {
                 in
               </a>
               <a href="#" aria-label="TikTok" className="icon">
-                ♪
+                â™ª
               </a>
             </div>
           </div>
@@ -305,6 +306,55 @@ function Gallery() {
 function BuyHere() {
   return (
     <section id="compra" className="buy">
+      <img
+        className="buy__triangle buy__triangle--tl"
+        src="/assets/Objeto inteligente vectorial copia 10.png"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        className="buy__triangle buy__triangle--tr"
+        src="/assets/Objeto inteligente vectorial copia 11.png"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        className="buy__triangle buy__triangle--ml"
+        src="/assets/Objeto inteligente vectorial copia 5.png"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        className="buy__triangle buy__triangle--mr"
+        src="/assets/Objeto inteligente vectorial copia 8.png"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        className="buy__triangle buy__triangle--bl"
+        src="/assets/Objeto inteligente vectorial copia 2.png"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        className="buy__triangle buy__triangle--br"
+        src="/assets/Objeto inteligente vectorial copia 3.png"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        className="buy__triangle buy__triangle--tl2"
+        src="/assets/Objeto inteligente vectorial copia.png"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        className="buy__triangle buy__triangle--br2"
+        src="/assets/Objeto inteligente vectorial.png"
+        alt=""
+        aria-hidden="true"
+      />
+
       <div className="container buy__inner">
         <div className="buy__left">
           <div className="buy__media" aria-hidden="true">
@@ -322,12 +372,12 @@ function BuyHere() {
           </div>
 
           <p className="buy__text">
-            Si te hace falta el Nacho Señorial, <br />
+            Si te hace falta el Nacho señorial, <br />
             puedes dejarnos tus datos aquí:
           </p>
         </div>
 
-        <form id="contacto" className="form">
+        <form id="contacto" className="form form--buy">
           <label className="field">
             <span>Nombre:</span>
             <input type="text" />
@@ -362,7 +412,7 @@ function Footer() {
     <footer className="footer">
       <div className="container footer__inner">
         <div className="footer__brand">
-          <Media src="/assets/logo_señorial.png" alt="Señorial" ratio="5/2" fit="contain" />
+          <Media src="/assets/logo_señorial.png" alt="señorial" ratio="5/2" fit="contain" />
           <Media src="/assets/textoNachos.png" alt="Nachos" ratio="5/2" fit="contain" />
         </div>
 
@@ -392,3 +442,4 @@ function FooterCol({ title, items }: { title: string; items: string[] }) {
     </div>
   );
 }
+
