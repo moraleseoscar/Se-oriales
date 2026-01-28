@@ -2,16 +2,17 @@ import { useEffect, useState } from "react";
 import "./styles.css";
 import Media from "./components/Media";
 
-const heroImages = [
-  "/assets/S-Tik-Tok-1200x628.jpg",
+const galleryImages = [
   "/assets/movile.jpg",
-  "/assets/Gemini_Generated_Image_c3d71oc3d71oc3d7.png",
+  "/assets/S-Tik-Tok-1200x628.jpg",
+  "/assets/Objeto inteligente vectorial copia 11.png",
+  "/assets/Objeto inteligente vectorial copia 8.png",
+  "/assets/Objeto inteligente vectorial copia 5.png",
+  "/assets/Objeto inteligente vectorial copia 2.png",
+  "/assets/Objeto inteligente vectorial copia 3.png",
+  "/assets/Objeto inteligente vectorial copia 10.png",
+  "/assets/Objeto inteligente vectorial.png",
 ];
-
-const galleryImages = Array.from(
-  { length: 12 },
-  () => "/assets/Gemini_Generated_Image_c3d71oc3d71oc3d7.png",
-);
 
 export default function App() {
   return (
@@ -38,14 +39,15 @@ function Header() {
     <header className="header" aria-label="Top navigation">
       <div className="container header__inner">
         <a className="brand" href="#inicio" aria-label="Nachos Señorial">
-          <div className="brand__logo brand__logo--solo">
+          <div className="brand__logo">
             <Media
-              src="/assets/señorial-nachos-nachos.png"
+              src="/assets/Objeto inteligente vectorial.png"
               alt="Logo Señorial"
               ratio="6/2"
               fit="contain"
             />
           </div>
+          <span className="brand__text">NACHOS</span>
         </a>
 
         <nav className="nav" aria-label="Main navigation">
@@ -68,7 +70,19 @@ function Header() {
 }
 
 function Hero() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  return (
+    <section id="inicio" className="hero">
+      <div className="container hero__inner">
+        <div className="hero__left">
+          <h1 className="hero__title">
+            PARA LA <span className="hero__titleStrong">FAMILIA</span>
+          </h1>
+
+          <p className="hero__subtitle">¡EL NACHO QUE FALTABA!</p>
+
+          <div className="hero__logoRow">
+            <Media src="/assets/Objeto inteligente vectorial.png" alt="Señorial" ratio="6/2" fit="contain" />
+          </div>
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -85,23 +99,17 @@ function Hero() {
     setActiveIndex((prev) => (prev + 1) % heroImages.length);
   };
 
-  return (
-    <section id="inicio" className="hero">
-      <div className="hero__carousel">
-        <button className="hero__arrow hero__arrow--left" type="button" onClick={goPrev} aria-label="Anterior">
-          ‹
-        </button>
+        <div className="hero__right" aria-hidden="true">
+          <Media src="/assets/Montaje.png" alt="Nachos Señorial" ratio="4/3" fit="contain" />
+        </div>
 
-        <div className="hero__slides">
-          {heroImages.map((src, index) => (
-            <div
-              key={src}
-              className={`hero__slide ${index === activeIndex ? "is-active" : ""}`}
-              aria-hidden={index !== activeIndex}
-            >
-              <Media src={src} alt={`Nachos Señorial ${index + 1}`} ratio="16/7" fit="cover" />
-            </div>
-          ))}
+        <div className="hero__chips" aria-hidden="true">
+          <Media
+            src="/assets/Objeto inteligente vectorial copia 11.png"
+            alt="Nacho"
+            ratio="1/1"
+            fit="contain"
+          />
         </div>
 
         <button className="hero__arrow hero__arrow--right" type="button" onClick={goNext} aria-label="Siguiente">
@@ -176,6 +184,30 @@ function Highlight() {
   );
 }
 
+function Highlight() {
+  return (
+    <section className="highlight">
+      <div className="container highlight__inner">
+        <div className="highlight__left">
+          <h2 className="highlight__title">
+            ¡EL <span>NACHO</span> QUE FALTABA!
+          </h2>
+          <div className="highlight__logo">
+            <Media src="/assets/Objeto inteligente vectorial.png" alt="Señorial" ratio="5/2" fit="contain" />
+          </div>
+        </div>
+        <div className="highlight__copy">
+          <p>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+            laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation.
+          </p>
+        </div>
+        <img className="highlight__chip" src="/assets/Objeto inteligente vectorial copia 8.png" alt="" />
+      </div>
+    </section>
+  );
+}
+
 function Recipes() {
   return (
     <section id="recetas" className="recipes">
@@ -183,14 +215,9 @@ function Recipes() {
         <h2 className="sectionTitle sectionTitle--center sectionTitle--green nachos-font">LA RECETA QUE FALTABA</h2>
 
         <div className="recipes__grid">
-          <RecipeCard title="Para una noche casual" time="15min" image="/assets/Gemini_Generated_Image_c3d71oc3d71oc3d7.png" />
-          <RecipeCard
-            title="Para la reunión con amigos"
-            time="15min"
-            image="/assets/Gemini_Generated_Image_c3d71oc3d71oc3d7.png"
-            variant="dark"
-          />
-          <RecipeCard title="Para ver el partido" time="25min" image="/assets/Gemini_Generated_Image_c3d71oc3d71oc3d7.png" />
+          <RecipeCard title="Para una noche casual" time="15min" image="/assets/S-Tik-Tok-1200x628.jpg" />
+          <RecipeCard title="Para la reunión con amigos" time="15min" image="/assets/movile.jpg" />
+          <RecipeCard title="Para ver el partido" time="25min" image="/assets/S-Tik-Tok-1200x628.jpg" />
         </div>
 
         <div className="center">
@@ -207,12 +234,10 @@ function RecipeCard({
   title,
   time,
   image,
-  variant,
 }: {
   title: string;
   time: string;
   image: string;
-  variant?: "dark";
 }) {
   return (
     <article className={`recipeCard ${variant === "dark" ? "recipeCard--dark" : ""}`}>
@@ -282,19 +307,17 @@ function Gallery() {
         </div>
 
         <div className="follow">
-          <div className="follow__row">
-            <div className="follow__label">SÍGUENOS</div>
-            <div className="follow__icons">
-              <a href="#" aria-label="Facebook" className="icon">
-                f
-              </a>
-              <a href="#" aria-label="Instagram" className="icon">
-                in
-              </a>
-              <a href="#" aria-label="TikTok" className="icon">
-                ♪
-              </a>
-            </div>
+          <div className="follow__label">SÍGUENOS</div>
+          <div className="follow__icons">
+            <a href="#" aria-label="Facebook" className="icon">
+              f
+            </a>
+            <a href="#" aria-label="Instagram" className="icon">
+              in
+            </a>
+            <a href="#" aria-label="TikTok" className="icon">
+              ♪
+            </a>
           </div>
         </div>
       </div>
@@ -325,6 +348,10 @@ function BuyHere() {
             Si te hace falta el Nacho Señorial, <br />
             puedes dejarnos tus datos aquí:
           </p>
+
+          <div className="buy__media" aria-hidden="true">
+            <Media src="/assets/Objeto inteligente vectorial copia 2.png" alt="Nacho" ratio="1/1" fit="contain" />
+          </div>
         </div>
 
         <form id="contacto" className="form">
@@ -362,8 +389,8 @@ function Footer() {
     <footer className="footer">
       <div className="container footer__inner">
         <div className="footer__brand">
-          <Media src="/assets/logo_señorial.png" alt="Señorial" ratio="5/2" fit="contain" />
-          <Media src="/assets/textoNachos.png" alt="Nachos" ratio="5/2" fit="contain" />
+          <Media src="/assets/Objeto inteligente vectorial.png" alt="Nachos" ratio="5/2" fit="contain" />
+          <div className="footer__brandText">NACHOS</div>
         </div>
 
         <div className="footer__cols">

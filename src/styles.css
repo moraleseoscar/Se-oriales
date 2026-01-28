@@ -1,8 +1,8 @@
 :root{
   --max: 1200px;
-  --green: #00c300;
+  --green: #08a341;
   --green-dark: #078338;
-  --green-deep: #004923;
+  --green-deep: #05672c;
   --yellow: #f2d000;
   --yellow-deep: #f5d400;
   --ink: #0c0c0c;
@@ -59,8 +59,12 @@ img { max-width: 100%; height: auto; display: block; }
   color: #fff;
 }
 .brand__logo{ width: 110px; }
-.brand__logo--solo{ width: 160px; }
 .brand__logo .media{ background: transparent; }
+.brand__text{
+  font-weight: 900;
+  letter-spacing: 1px;
+  font-size: 18px;
+}
 
 .nav{
   display: flex;
@@ -100,43 +104,58 @@ img { max-width: 100%; height: auto; display: block; }
 .btn--square{ border-radius: 12px; }
 
 .hero{
-  background: var(--green);
-  min-height: 600px;
-  padding: 0 0 34px;
+  background: var(--green) url("/assets/Gemini_Generated_Image_c3d71oc3d71oc3d7.png") center/cover no-repeat;
+  min-height: 560px;
+  padding-top: 48px;
+  padding-bottom: 40px;
+  color: #fff;
   position: relative;
   overflow: hidden;
+}
+.hero::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/assets/Objeto inteligente vectorial copia 10.png") 12% 20%/140px no-repeat,
+    url("/assets/Objeto inteligente vectorial copia 5.png") 85% 70%/150px no-repeat;
+  opacity: 0.3;
+  pointer-events: none;
 }
 .hero__carousel{
   width: 100%;
   height: clamp(320px, 46vw, 640px);
   position: relative;
+  z-index: 1;
 }
-.hero__slides{
-  position: relative;
-  width: 100%;
-  height: 100%;
+.hero__left{ max-width: 520px; }
+.hero__title{
+  margin: 0;
+  font-size: clamp(36px, 4vw, 70px);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
-.hero__slide{
+.hero__titleStrong{ display: inline-block; font-weight: 950; color: var(--yellow-deep); }
+.hero__subtitle{
+  margin: 10px 0 18px;
+  font-size: clamp(16px, 2vw, 22px);
+  font-weight: 900;
+  text-transform: uppercase;
+  opacity: 0.95;
+}
+.hero__logoRow{ width: 160px; margin-bottom: 16px; }
+.hero__logoRow .media{ background: transparent; }
+.hero__ctaRow{ margin-top: 8px; }
+.hero__right{ width: 100%; max-width: 540px; justify-self: end; }
+.hero__right .media{ background: transparent; }
+.hero__chips{
   position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.4s ease;
+  right: 6%;
+  bottom: 12%;
+  width: 140px;
+  transform: rotate(-8deg);
 }
-.hero__slide.is-active{ opacity: 1; }
-.hero__slide .media{ border-radius: 0; background: transparent; }
-.hero__arrow{
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  border: none;
-  background: transparent;
-  font-size: 38px;
-  color: var(--yellow-deep);
-  cursor: pointer;
-  padding: 4px 8px;
-}
-.hero__arrow--left{ left: 6px; }
-.hero__arrow--right{ right: 6px; }
+.hero__chips .media{ background: transparent; border-radius: 0; }
 
 .hero__dots{
   position: absolute;
@@ -148,16 +167,15 @@ img { max-width: 100%; height: auto; display: block; }
   align-items: center;
 }
 .dot{
-  width: 22px;
-  height: 6px;
+  width: 10px;
+  height: 10px;
   border-radius: 999px;
-  border: none;
   background: rgba(245,212,0,0.55);
 }
 .dot--active{ background: var(--yellow-deep); }
 
 .products{
-  background: #f7f7f7 url("/assets/fondo_quesos_blanco.png") center/cover no-repeat;
+  background: #f7f7f7 url("/assets/Objeto inteligente vectorial copia 8.png") 15% 55%/140px no-repeat;
   padding: 56px 0;
   position: relative;
 }
@@ -181,13 +199,29 @@ img { max-width: 100%; height: auto; display: block; }
   bottom: 10%;
   width: 80px;
 }
-.products__content{
+.products__content{ text-align: left; }
+.products__title{
+  margin: 0 0 10px;
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 950;
+  text-transform: uppercase;
+  font-size: clamp(34px, 4vw, 58px);
+  color: #f0b400;
+  text-shadow: 0 2px 0 rgba(0,0,0,0.2);
+}
+.highlight__title span{ color: var(--yellow-deep); }
+.highlight__copy{
   text-align: center;
   display: grid;
-  justify-items: center;
+  gap: 12px;
 }
-.products__titleImage{ width: min(360px, 80%); margin-bottom: 18px; }
-.products__titleImage .media{ background: transparent; }
+.highlight__copy p{ margin: 0; max-width: 520px; opacity: 0.9; }
+.highlight__chip{
+  position: absolute;
+  right: 4%;
+  bottom: -18px;
+  width: 120px;
+}
 
 .highlight{
   background: var(--green);
@@ -205,22 +239,16 @@ img { max-width: 100%; height: auto; display: block; }
 .highlight__left{
   display: grid;
   gap: 12px;
-  justify-items: center;
-  text-align: center;
+  justify-items: start;
 }
 .highlight__logo .media{ background: transparent; }
 .highlight__title{
   margin: 0 0 10px;
   font-size: clamp(22px, 3vw, 36px);
-  font-weight: 950;
+  font-weight: 900;
   text-transform: uppercase;
 }
 .highlight__title span{ color: var(--yellow-deep); }
-.highlight__copy{
-  text-align: center;
-  display: grid;
-  gap: 12px;
-}
 .highlight__copy p{ margin: 0; max-width: 520px; opacity: 0.9; }
 .highlight__chip{
   position: absolute;
@@ -265,13 +293,11 @@ img { max-width: 100%; height: auto; display: block; }
   color: #004923;
   overflow: hidden;
 }
-.recipeCard--dark{ background: #004923; color: var(--yellow); }
-.recipeCard__image .media{ border-radius: 26px 26px 0 0; background: transparent; }
 .recipeCard__bar{
   display: grid;
   gap: 8px;
   padding: 12px 14px;
-  background: transparent;
+  background: #f3f3f3;
 }
 .recipeCard__title{ font-weight: 900; font-size: 13px; }
 .recipeCard__time{ font-weight: 900; font-size: 12px; opacity: 0.8; }
@@ -293,14 +319,13 @@ img { max-width: 100%; height: auto; display: block; }
   color: #fff;
   position: relative;
 }
-.promo__marquee{
+.promo::after{
+  content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 62px;
-  background: url("/assets/señorial-nachos-nachos.png") repeat-x center/contain;
-  opacity: 0.9;
+  inset: 0;
+  background: url("/assets/Objeto inteligente vectorial copia 5.png") 8% 70%/160px no-repeat;
+  opacity: 0.25;
+  pointer-events: none;
 }
 .promo__inner{ position: relative; z-index: 1; }
 .promo__grid{
@@ -332,7 +357,7 @@ img { max-width: 100%; height: auto; display: block; }
 .gallery .container{
   width: 100%;
   max-width: none;
-  padding: 0;
+  padding: 0 16px;
 }
 .gallery__title{
   margin: 0 0 22px;
@@ -344,10 +369,10 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .gallery__grid{
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 0;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 6px;
 }
-.gallery__item{ border-radius: 0; }
+.gallery__item{ border-radius: 8px; }
 
 .follow{
   display: grid;
@@ -371,14 +396,14 @@ img { max-width: 100%; height: auto; display: block; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 32px;
+  height: 32px;
   margin: 0 5px;
-  border-radius: 8px;
-  background: #fff;
-  color: #111;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.18);
+  color: #fff;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 800;
 }
 
@@ -394,13 +419,7 @@ img { max-width: 100%; height: auto; display: block; }
   align-items: start;
   justify-items: center;
 }
-.buy__left{ max-width: 480px; }
-.buy__headline{
-  display: flex;
-  align-items: flex-start;
-  gap: 24px;
-  flex-wrap: wrap;
-}
+.buy__left{ max-width: 360px; }
 .buy__bullets{
   margin: 0;
   padding-left: 18px;
@@ -412,9 +431,8 @@ img { max-width: 100%; height: auto; display: block; }
   font-weight: 700;
   opacity: 0.95;
 }
-.buy__media{ width: 200px; margin-bottom: 18px; }
+.buy__media{ width: 160px; margin-top: 18px; }
 .buy__media .media{ background: transparent; }
-.buy__title{ color: var(--yellow-deep); }
 
 .form{
   background: rgba(0,0,0,0.18);
@@ -422,7 +440,7 @@ img { max-width: 100%; height: auto; display: block; }
   border-radius: 20px;
   border: 1px solid rgba(255,255,255,0.10);
   width: 100%;
-  max-width: 420px;
+  max-width: 360px;
 }
 .field{ display: grid; gap: 6px; margin-bottom: 10px; }
 .field span{
@@ -454,6 +472,11 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .footer__brand{ width: 100%; max-width: 200px; }
 .footer__brand .media{ background: transparent; }
+.footer__brandText{
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin-top: 6px;
+}
 
 .footer__cols{
   display: grid;
@@ -483,6 +506,10 @@ img { max-width: 100%; height: auto; display: block; }
 @media (max-width: 1024px){
   :root{ --max: 960px; }
 
+  .hero__inner{ grid-template-columns: 1fr; }
+  .hero__right{ justify-self: start; max-width: 560px; }
+  .hero__chips{ display: none; }
+
   .products__inner{ grid-template-columns: 1fr; }
   .products__pepper{ display: none; }
 
@@ -501,6 +528,7 @@ img { max-width: 100%; height: auto; display: block; }
 @media (max-width: 520px){
   .nav{ display: none; }
   .brand__logo{ width: 90px; }
+  .brand__text{ font-size: 14px; }
   .gallery__grid{ grid-template-columns: 1fr; }
   .footer__cols{ grid-template-columns: 1fr; }
 }
