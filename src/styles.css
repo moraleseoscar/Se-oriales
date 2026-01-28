@@ -1,7 +1,8 @@
 :root{
-  --max: 1200px;             /* keep content centered like the PDF */
-  --green: #0aa344;
+  --max: 1200px;
+  --green: #00c300;
   --green-dark: #078338;
+  --green-deep: #004923;
   --yellow: #f2d000;
   --yellow-deep: #f5d400;
   --ink: #0c0c0c;
@@ -13,26 +14,23 @@
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
-body { font-family: "brother-xs", system-ui, Arial, sans-serif; color: #111; }
+body { font-family: "brother-xs", system-ui, Arial, sans-serif; color: #111; background: #0a2b16; }
 
-.page { width: 100%; overflow-x: hidden; }
+.page { width: 100%; overflow-x: hidden; background: #fff; }
 
-/* Centered layout */
 .container {
   width: min(var(--max), 100%);
   margin: 0 auto;
   padding: 0 24px;
 }
 
-/* Images: always fluid */
 img { max-width: 100%; height: auto; display: block; }
 
-/* Media wrapper (used by <Media />) */
 .media{
   width: 100%;
   overflow: hidden;
   border-radius: var(--radius);
-  background: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.06);
 }
 .media > img{
   width: 100%;
@@ -40,33 +38,30 @@ img { max-width: 100%; height: auto; display: block; }
   display: block;
 }
 
-/* =========================
-   HEADER (must sit over hero)
-========================= */
 .header{
-  position: absolute;          /* overlay */
-  top: 0;
-  left: 0;
-  right: 0;
+  position: relative;
   z-index: 20;
-  padding: 12px 0;
+  padding: 14px 0;
+  background: var(--green);
 }
 .header__inner{
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-
-  /* subtle readability layer like the mock */
-  background: linear-gradient(to bottom, rgba(0,0,0,0.45), rgba(0,0,0,0.00));
-  padding: 10px 14px;
-  border-radius: 14px;
 }
 
-.brand{ text-decoration: none; }
-.brand__logo{ width: 160px; }
+.brand{
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+}
+.brand__logo{ width: 110px; }
+.brand__logo--solo{ width: 160px; }
+.brand__logo .media{ background: transparent; }
 
-/* Nav like the PDF: small, white, spaced */
 .nav{
   display: flex;
   align-items: center;
@@ -76,16 +71,13 @@ img { max-width: 100%; height: auto; display: block; }
   color: #fff;
   text-decoration: none;
   font-weight: 800;
-  font-size: 12px;
+  font-size: 16px;
   letter-spacing: 0.8px;
   text-transform: uppercase;
-  opacity: 0.92;
+  opacity: 0.98;
 }
 .nav__link:hover{ opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
 
-/* =========================
-   BUTTONS
-========================= */
 .btn{
   display: inline-flex;
   align-items: center;
@@ -95,75 +87,79 @@ img { max-width: 100%; height: auto; display: block; }
   font-weight: 900;
   text-decoration: none;
   line-height: 1;
-  padding: 12px 18px;
+  padding: 12px 20px;
   border-radius: 14px;
 }
 .btn--pill{ border-radius: 999px; }
-.btn--primary{ background: var(--yellow-deep); color: #111; }
+.btn--primary{ background: var(--yellow-deep); color: #111; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 .btn--dark{ background: #0d0d0d; color: #fff; }
 .btn--ghost{ background: #fff; color: #111; }
+.btn--green{ background: #004923; color: var(--yellow); }
+.btn--green-dark{ background: #004923; color: #fff; }
+.btn--yellow{ background: var(--yellow-deep); color: #004923; }
+.btn--square{ border-radius: 12px; }
 
-/* =========================
-   HERO (two-column like PDF)
-========================= */
 .hero{
-  background: var(--green) url("/assets/Gemini_Generated_Image_c3d71oc3d71oc3d7.png") center/cover no-repeat;
-  min-height: 520px;
-  padding-top: 76px; /* space for absolute header */
-  padding-bottom: 40px;
+  background: var(--green);
+  min-height: 600px;
+  padding: 0 0 34px;
+  position: relative;
+  overflow: hidden;
 }
-.hero__inner{
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 28px;
-  align-items: center;
+.hero__carousel{
+  width: 100%;
+  height: clamp(320px, 46vw, 640px);
   position: relative;
 }
-.hero__left{ color: #fff; }
-.hero__title{
-  margin: 0;
-  font-size: clamp(34px, 4vw, 64px);
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+.hero__slides{
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
-.hero__titleStrong{
-  display: inline-block;
-  font-weight: 950;
+.hero__slide{
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
-.hero__subtitle{
-  margin: 10px 0 18px;
-  font-size: clamp(16px, 2vw, 22px);
-  font-weight: 900;
-  text-transform: uppercase;
-  opacity: 0.95;
+.hero__slide.is-active{ opacity: 1; }
+.hero__slide .media{ border-radius: 0; background: transparent; }
+.hero__arrow{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  font-size: 38px;
+  color: var(--yellow-deep);
+  cursor: pointer;
+  padding: 4px 8px;
 }
-.hero__ctaRow{ margin-top: 8px; }
-.hero__right{ width: 100%; max-width: 520px; justify-self: end; }
+.hero__arrow--left{ left: 6px; }
+.hero__arrow--right{ right: 6px; }
 
 .hero__dots{
   position: absolute;
   left: 50%;
-  bottom: -14px;
+  bottom: 10px;
   transform: translateX(-50%);
   display: flex;
   gap: 8px;
   align-items: center;
 }
 .dot{
-  width: 8px;
-  height: 8px;
+  width: 22px;
+  height: 6px;
   border-radius: 999px;
-  background: rgba(255,255,255,0.40);
+  border: none;
+  background: rgba(245,212,0,0.55);
 }
-.dot--active{ background: rgba(255,255,255,0.95); }
+.dot--active{ background: var(--yellow-deep); }
 
-/* =========================
-   PRODUCTS (white section w/ split)
-========================= */
 .products{
-  background: #f7f7f7;
-  padding: 46px 0;
+  background: #f7f7f7 url("/assets/fondo_quesos_blanco.png") center/cover no-repeat;
+  padding: 56px 0;
+  position: relative;
 }
 .products__inner{
   display: grid;
@@ -171,41 +167,88 @@ img { max-width: 100%; height: auto; display: block; }
   gap: 26px;
   align-items: center;
 }
-.products__media{ width: 100%; max-width: 560px; }
-.products__content{ text-align: left; }
-.products__title{
-  margin: 0 0 10px;
-  font-weight: 950;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-size: clamp(34px, 4vw, 58px);
+.products__media{ width: 100%; max-width: 560px; position: relative; }
+.products__media .media{ background: transparent; }
+.products__pepper{
+  position: absolute;
+  left: -12%;
+  bottom: 20%;
+  width: 110px;
 }
-.products__text{
-  margin: 14px 0 0;
-  max-width: 520px;
-  line-height: 1.45;
-  color: #222;
-  opacity: 0.95;
+.products__pepper--right{
+  right: -10%;
+  left: auto;
+  bottom: 10%;
+  width: 80px;
+}
+.products__content{
+  text-align: center;
+  display: grid;
+  justify-items: center;
+}
+.products__titleImage{ width: min(360px, 80%); margin-bottom: 18px; }
+.products__titleImage .media{ background: transparent; }
+
+.highlight{
+  background: var(--green);
+  padding: 36px 0 44px;
+  color: #fff;
+  position: relative;
+}
+.highlight__inner{
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 24px;
+  align-items: center;
+  position: relative;
+}
+.highlight__left{
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  text-align: center;
+}
+.highlight__logo .media{ background: transparent; }
+.highlight__title{
+  margin: 0 0 10px;
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 950;
+  text-transform: uppercase;
+}
+.highlight__title span{ color: var(--yellow-deep); }
+.highlight__copy{
+  text-align: center;
+  display: grid;
+  gap: 12px;
+}
+.highlight__copy p{ margin: 0; max-width: 520px; opacity: 0.9; }
+.highlight__chip{
+  position: absolute;
+  right: 4%;
+  bottom: -18px;
+  width: 120px;
 }
 
-/* =========================
-   SECTION TITLES
-========================= */
 .sectionTitle{
   margin: 0 0 18px;
   font-size: clamp(28px, 3.2vw, 52px);
-  font-weight: 950;
+  font-weight: 980;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
 .sectionTitle--center{ text-align: center; }
 .sectionTitle--light{ color: #fff; }
+.sectionTitle--green{ color: #004923; }
+.sectionTitle--promo{ color: var(--yellow-deep); }
 
-/* =========================
-   RECIPES (yellow with 3 cards)
-========================= */
+.nachos-font{
+  font-family: "brother-xs", system-ui, Arial, sans-serif;
+  font-weight: 950;
+  letter-spacing: 1px;
+}
+
 .recipes{
-  background: var(--yellow);
+  background: var(--yellow) url("/assets/fondo_quesos_amarillo.png") center/cover no-repeat;
   padding: 56px 0 60px;
 }
 .recipes__grid{
@@ -216,50 +259,50 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .recipeCard{
   background: #fff;
-  border-radius: var(--radius);
-  overflow: hidden;
+  border-radius: 26px;
   box-shadow: var(--shadow);
+  padding: 0;
+  color: #004923;
+  overflow: hidden;
 }
-.recipeCard__image{ }
+.recipeCard--dark{ background: #004923; color: var(--yellow); }
+.recipeCard__image .media{ border-radius: 26px 26px 0 0; background: transparent; }
 .recipeCard__bar{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 14px;
-  background: #f3f3f3;
-}
-.recipeCard__title{
-  font-weight: 900;
-  font-size: 13px;
-}
-.recipeCard__time{
-  font-weight: 900;
-  font-size: 12px;
-  opacity: 0.8;
-}
-.recipeCard__play{
-  width: 34px;
-  height: 26px;
-  border-radius: 8px;
-  background: #0d0d0d;
-  color: #fff;
   display: grid;
-  place-items: center;
-  font-size: 12px;
+  gap: 8px;
+  padding: 12px 14px;
+  background: transparent;
 }
+.recipeCard__title{ font-weight: 900; font-size: 13px; }
+.recipeCard__time{ font-weight: 900; font-size: 12px; opacity: 0.8; }
+.recipeCard__play{
+  background: transparent;
+  color: #004923;
+  justify-self: end;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+.recipeCard--dark .recipeCard__play{ color: #fff; }
 
 .center{ display: flex; justify-content: center; margin-top: 18px; }
 
-/* =========================
-   PROMO (green, title centered, split)
-========================= */
 .promo{
   background: var(--green);
   padding: 56px 0 58px;
   color: #fff;
+  position: relative;
 }
-.promo__inner{ }
+.promo__marquee{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 62px;
+  background: url("/assets/señorial-nachos-nachos.png") repeat-x center/contain;
+  opacity: 0.9;
+}
+.promo__inner{ position: relative; z-index: 1; }
 .promo__grid{
   margin-top: 14px;
   display: grid;
@@ -273,53 +316,72 @@ img { max-width: 100%; height: auto; display: block; }
   line-height: 1.45;
   opacity: 0.95;
 }
+.promo__left{
+  text-align: center;
+  display: grid;
+  justify-items: center;
+}
 .promo__right{ width: 100%; max-width: 520px; justify-self: end; }
+.promo__right .media{ background: transparent; }
 
-/* =========================
-   GALLERY (green darker band look)
-========================= */
 .gallery{
-  background: var(--green-dark);
+  background: var(--green);
   padding: 42px 0 46px;
   color: #fff;
 }
+.gallery .container{
+  width: 100%;
+  max-width: none;
+  padding: 0;
+}
 .gallery__title{
-  margin: 0 0 14px;
-  font-weight: 900;
-  font-size: 18px;
+  margin: 0 0 22px;
+  font-weight: 950;
+  font-size: clamp(26px, 3vw, 40px);
   opacity: 0.95;
+  text-align: left;
+  padding-left: 24px;
 }
 .gallery__grid{
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
 }
-.gallery__item{ border-radius: 12px; }
+.gallery__item{ border-radius: 0; }
 
 .follow{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  margin-top: 16px;
+  display: grid;
+  gap: 16px;
+  margin-top: 26px;
+  padding: 0 24px 10px;
 }
 .follow__label{
   font-weight: 950;
   text-transform: uppercase;
   letter-spacing: 1px;
+  font-size: 22px;
+}
+.follow__row{
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  justify-content: center;
 }
 .follow__icons .icon{
-  display: inline-block;
-  width: 32px;
-  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
   margin: 0 5px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.18);
+  border-radius: 8px;
+  background: #fff;
+  color: #111;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 800;
 }
 
-/* =========================
-   BUY (green, left bullets + right form)
-========================= */
 .buy{
   background: var(--green);
   padding: 56px 0 62px;
@@ -330,24 +392,37 @@ img { max-width: 100%; height: auto; display: block; }
   grid-template-columns: 1fr 420px;
   gap: 28px;
   align-items: start;
+  justify-items: center;
+}
+.buy__left{ max-width: 480px; }
+.buy__headline{
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
 }
 .buy__bullets{
   margin: 0;
   padding-left: 18px;
-  font-weight: 800;
+  font-weight: 900;
+  font-size: 18px;
 }
 .buy__text{
   margin: 14px 0 0;
   font-weight: 700;
   opacity: 0.95;
 }
+.buy__media{ width: 200px; margin-bottom: 18px; }
+.buy__media .media{ background: transparent; }
+.buy__title{ color: var(--yellow-deep); }
 
-/* Form box like the PDF (rounded, dark) */
 .form{
-  background: rgba(0,0,0,0.28);
-  padding: 18px;
-  border-radius: 18px;
+  background: rgba(0,0,0,0.18);
+  padding: 28px;
+  border-radius: 20px;
   border: 1px solid rgba(255,255,255,0.10);
+  width: 100%;
+  max-width: 420px;
 }
 .field{ display: grid; gap: 6px; margin-bottom: 10px; }
 .field span{
@@ -364,26 +439,28 @@ img { max-width: 100%; height: auto; display: block; }
   background: rgba(255,255,255,0.92);
 }
 
-/* =========================
-   FOOTER (dark, columns)
-========================= */
 .footer{
-  background: #0a2b16;
-  padding: 34px 0 40px;
+  background: var(--green-deep);
+  padding: 54px 0 70px;
   color: #fff;
 }
 .footer__inner{
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: 1fr 2fr;
   gap: 26px;
   align-items: start;
+  justify-items: center;
+  text-align: center;
 }
 .footer__brand{ width: 100%; max-width: 200px; }
+.footer__brand .media{ background: transparent; }
 
 .footer__cols{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
+  width: 100%;
+  max-width: 900px;
 }
 .footerCol__title{
   font-weight: 950;
@@ -403,16 +480,14 @@ img { max-width: 100%; height: auto; display: block; }
   font-size: 12px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
 @media (max-width: 1024px){
   :root{ --max: 960px; }
 
-  .hero__inner{ grid-template-columns: 1fr; }
-  .hero__right{ justify-self: start; max-width: 560px; }
-
   .products__inner{ grid-template-columns: 1fr; }
+  .products__pepper{ display: none; }
+
+  .highlight__inner{ grid-template-columns: 1fr; }
+
   .promo__grid{ grid-template-columns: 1fr; }
   .recipes__grid{ grid-template-columns: 1fr; }
   .gallery__grid{ grid-template-columns: repeat(2, 1fr); }
@@ -424,8 +499,8 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 @media (max-width: 520px){
-  .nav{ display: none; } /* later: burger menu */
-  .brand__logo{ width: 140px; }
+  .nav{ display: none; }
+  .brand__logo{ width: 90px; }
   .gallery__grid{ grid-template-columns: 1fr; }
   .footer__cols{ grid-template-columns: 1fr; }
 }
