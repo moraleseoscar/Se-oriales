@@ -1,0 +1,9 @@
+﻿export { default as Header } from "./Header";
+export { default as Hero } from "./Hero";
+export { default as Products } from "./Products";
+export { default as Highlight } from "./Highlight";
+export { default as Recipes } from "./Recipes";
+export { default as Promo } from "./Promo";
+export { default as Gallery } from "./Gallery";
+export { default as BuyHere } from "./BuyHere";
+export { default as Footer } from "./Footer";
